@@ -131,7 +131,7 @@ if
 */
 }
 
-
+/*Nouvelle fonctions*/
 // Fonction de vérification des champs
 function controlInputNames(input, inputError, textErrorEmpty) {
 
