@@ -15,7 +15,6 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelector("#closeform"); /*croix pour fermer la modal*/
 const modalBtnSubmit = document.querySelector('.btn-submit');
-/*console.log(modalClose);*/
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -23,31 +22,24 @@ modalClose.addEventListener("click", closeModal);
 
 // launch modal form
 function launchModal() {
-  /*console.log('test');*/
   modalbg.style.display = "block";
 }
+
 function closeModal() {
-  /*console.log('toto');*/
   modalbg.style.display = "none";
 }
 
 function controlInput() {
   console.log('controlinput');
 }
-/*
-let test = document.getElementById("first");
-console.log(test);
-*/
 
 // FORMULAIRE
 
 // Définition des variables
 
 let firstNameValid = false;
-/*console.log(firstNameValid);*/
-
 let lastNameValid = false;
-console.log(lastNameValid);
+/*console.log(lastNameValid);*/
 
 let emailValid = false;
 let birthdayDateValid = false;
@@ -62,14 +54,8 @@ let regExpNumbers = /^[0-9]*$/;
 // Définition des constantes
 
 const firstName = document.querySelector("#first");
-/*console.log(firstName);*/
-
 const lastName = document.querySelector("#last");
-console.log(lastName);
-
 const email = document.querySelector("#email");
-console.log(email);
-
 const birthdayDate = document.querySelector("#birthdate");
 const quantityTournament = document.querySelector("quantity");
 const wichTown = document.querySelectorAll('input[name="location"]');
@@ -103,51 +89,81 @@ modalBtn.forEach((btn) => btn.addEventListener("click", () => modalbg.style.disp
 
 // Click to leave modal Validation
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Vérification des champs prénom, nom et email
 modalBtnSubmit.addEventListener("click", controlForm);
-function controlForm() {
+function controlForm(event) {
+  event.preventDefault();
   console.log('controlForm')
-  firstNameValid = controlInput(firstName, errorFirstName,
-    "Veuillez préciser votre Prénom dans ce champ.", "Veuillez entrer au minimum 2 caratères et seulement des lettres.",
-    regExpName, firstNameValid);
+  firstNameValid = controlInputNames(firstName, errorFirstName,
+    "Veuillez entrer 2 caractères ou plus pour le champ du prénom");
 
-  lasttNameValid = controlInput(lastName, errorLastName,
-    "Veuillez préciser votre Nom dans ce champ.", "Veuillez entrer au minimum 2 caratères et seulement des lettres.",
-    regExpName, lastNameValid);
+  lastNameValid = controlInputNames(lastName, errorLastName,
+    "Veuillez entrer 2 caractères ou plus pour le champ du nom");
 
-  emailValid = controlInput(email, errorEmail,
-    "L'adresse email saisie est incorrecte.",
-    regExpEmail, emailValid);
-
+  emailValid = controlInputEmail(email, errorEmail,
+    "L'adresse email saisie est incorrecte.");
+/*
+  birthdayDateValid = birthdayDatecheck () {
+if 
+  }
+*/
 }
 
+
 // Fonction de vérification des champs
-/*console.log(firstName.value);*/
-function controlInput(input, inputError, textErrorEmpty, textError, regex, isValid) {
+function controlInputNames(input, inputError, textErrorEmpty) {
 
   if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
-    isValid = false;
+    return false;
   }
-  else if (regex.test(input.value) === false) {
-    inputError.innerHTML = textError;
-    input.style.border = "2px solid #e54858";
-    isValid = false;
-  }
+
   else {
-    isValid = true;
     input.style.border = "0px";
     inputError.innerHTML = "";
+    return true;
   }
 
-  return isValid;
 }
 
+function controlInputEmail(input, inputError, textError) {
+console.log(input.value)
+  const validEmail = regExpEmail.test(input.value)
+  console.log(validEmail)
+  return validEmail
+
+}
+
+/*function birthdayDatecheck*/
+function birthdayDatecheck(birthdayDate) {
+
+}
 
 // Vérification du champ Date de naissance
-console.log(birthdayDate.value);
-birthdayDate = controlInput(input, inputError, textErrorEmpty, textError, isValid)
+birthdayDate = controlInput(input, inputError, textErrorEmpty, textError, isValid) 
 
   if (birthdayDate.value == "") {
     errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
