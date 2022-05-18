@@ -1,5 +1,4 @@
 // Code de départ
-
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -28,10 +27,11 @@ function launchModal() {
 function closeModal() {
   modalbg.style.display = "none";
 }
-
+/*
 function controlInput() {
   console.log('controlinput');
 }
+*/
 
 // FORMULAIRE
 
@@ -92,11 +92,15 @@ function controlForm(event) {
   lastNameValid = controlInputNames(lastName, errorLastName,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom");
 
-  emailValid = controlInputEmail(email, errorEmail,
+  emailValid = controlInputEmail(email, errorEmail, regExpEmail,
     "L'adresse email saisie est incorrecte.");
 
   birthdayDateValid = birthdayDatecheck (birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
+
+  quantityTournamentValid = controlInput(quantityTournament, errorQuantityTournament, regExpNumbers, quantityTournamentValid, 
+    "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
+    "Vous devez saisir seulement des chiffres.");
   }
 
 /*Nouvelle fonctions*/
@@ -120,7 +124,7 @@ function controlInputNames(input, inputError, textErrorEmpty) {
 function controlInputEmail(input, inputError, textErrorEmpty) {
   const validEmail = regExpEmail.test(input.value)
   /*return validEmail*/
-  if (input.value) {
+  if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
@@ -129,7 +133,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
   else {
     input.style.border = "0px";
     inputError.innerHTML = "";
-    return emailValid;
+    return true;
     /*return validEmail;*/
   }
 }
@@ -141,12 +145,14 @@ function birthdayDatecheck(birthdayDate, errorBirthdate) {
     errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
+    return false;
   }
   
   else {
     birthdayDateValid = true;
     birthdayDate.style.border = "Opx";
     errorBirthdate.innerHTML = "";
+    return true;
   }
 
 }
@@ -165,28 +171,30 @@ birthdayDate = birthdayDatecheck(input, inputError, textErrorEmpty, textError, i
   }
 */
 
+/*
   // Vérification du champ nombre de tournois GameOn
   quantityTournamentValid = controlInput(quantityTournament, errorQuantityTournament,
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.",
     regExpNumbers, quantityTournamentValid);
-  
-  // Vérification du champ Radio "Quelles villes"
+ */ 
 
- wichTown = controlInput (wichTownValid, errorWhichTown)
-  for(let i=0; i < whichTown.length; i++) {
-    if(whichTown[i].checked) {
+/*
+
+  // Vérification du champ Radio "Quelles villes"
+function controlInputWichTown (wichTownValid, errorWhichTown)
+   //FAUT METTRE UN TRUC ICI à la place de for
+  for (let i=0; i < whichTown.length; i++) {
+    if (whichTown[i].checked) {
         whichTownValid = true;
         errorWhichTown.innerHTML = "";
     }
   }
-    if(whichTownValid===false) {
+    if (whichTownValid===false) {
       errorWhichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
     }
 
-
   // Vérification du checkbox des conditions d'utilisation
-
   if(conditionUser.checked) {
     errorConditionUser.innerHTML = "";
     conditionUserValid = true;
@@ -195,3 +203,4 @@ birthdayDate = birthdayDatecheck(input, inputError, textErrorEmpty, textError, i
     errorConditionUser.innerHTML = "Veuillez acceptez les conditions d'utilisation.";
     conditionUserValid = false;
   }
+*/
