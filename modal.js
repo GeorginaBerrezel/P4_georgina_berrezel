@@ -95,25 +95,28 @@ function controlForm(event) {
   emailValid = controlInputEmail(email, errorEmail, regExpEmail,
     "L'adresse email saisie est incorrecte.");
 
-  birthdayDateValid = birthdayDatecheck (birthdayDate, errorBirthdate,
+  birthdayDateValid = birthdayDateCheck (birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
 
   quantityTournamentValid = controlInput(quantityTournament, errorQuantityTournament, regExpNumbers, quantityTournamentValid, 
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.");
+
+  wichTownValid = controlInputWichTown(wichTown, errorWhichTown,
+    "Veuillez sélectionner au moins un choix de ville.");
+
+  conditionUserValid = conditionUserCheck (conditionUser, errorConditionUser);  
+
   }
 
 /*Nouvelle fonctions*/
 // Fonction de vérification des champs prénom et nom
 function controlInputNames(input, inputError, textErrorEmpty) {
-
   if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
-  }
-
-  else {
+  }else {
     input.style.border = "0px";
     inputError.innerHTML = "";
     return true;
@@ -128,9 +131,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
-  }
-
-  else {
+  }else {
     input.style.border = "0px";
     inputError.innerHTML = "";
     return true;
@@ -138,52 +139,24 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
   }
 }
 
-/*function birthdayDatecheck*/
-function birthdayDatecheck(birthdayDate, errorBirthdate) {
-
+//function birthdayDatecheck
+function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty/*input, inputError, textError, isValid*/) {
   if (birthdayDate.value == "") {
-    errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
+    errorBirthdate.innerHTML = textErrorEmpty;
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
     return false;
-  }
-  
-  else {
+  }else {
     birthdayDateValid = true;
     birthdayDate.style.border = "Opx";
     errorBirthdate.innerHTML = "";
     return true;
   }
-
 }
-/*
-// Vérification du champ Date de naissance
-birthdayDate = birthdayDatecheck(input, inputError, textErrorEmpty, textError, isValid) 
 
-  if (birthdayDate.value == "") {
-    errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
-    birthdayDate.style.border = "2px solid #e54858";
-    birthdayDate = false;
-  } else {
-    birthdayDateValid = true;
-    birthdayDate.style.border = "Opx";
-    errorBirthdate.innerHTML = "";
-  }
-*/
-
-/*
-  // Vérification du champ nombre de tournois GameOn
-  quantityTournamentValid = controlInput(quantityTournament, errorQuantityTournament,
-    "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
-    "Vous devez saisir seulement des chiffres.",
-    regExpNumbers, quantityTournamentValid);
- */ 
-
-/*
-
-  // Vérification du champ Radio "Quelles villes"
-function controlInputWichTown (wichTownValid, errorWhichTown)
-   //FAUT METTRE UN TRUC ICI à la place de for
+//Function champ Radio "Dans quelle ville"
+function controlInputWichTown(wichTownValid, errorWhichTown) {
+  console.log('controlInputWichTown');
   for (let i=0; i < whichTown.length; i++) {
     if (whichTown[i].checked) {
         whichTownValid = true;
@@ -193,14 +166,15 @@ function controlInputWichTown (wichTownValid, errorWhichTown)
     if (whichTownValid===false) {
       errorWhichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
     }
+  }
 
-  // Vérification du checkbox des conditions d'utilisation
+// Vérification du checkbox des conditions d'utilisation
+function conditionUserCheck(conditionUserValid, errorConditionUser) {
   if(conditionUser.checked) {
     errorConditionUser.innerHTML = "";
     conditionUserValid = true;
-  }
-  else {
+  }else {
     errorConditionUser.innerHTML = "Veuillez acceptez les conditions d'utilisation.";
     conditionUserValid = false;
   }
-*/
+}
