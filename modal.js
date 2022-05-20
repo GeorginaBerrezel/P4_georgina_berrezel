@@ -60,10 +60,10 @@ const conditionUser = document.querySelector("#checkbox1");
 // Définition des constantes d'erreur 
 const errorFirstName = document.querySelector("#errorfirstname");
 const errorLastName = document.querySelector("#errorlastname");
-const errorEmail = document.querySelector("#erroremail");
-const errorBirthdate = document.querySelector("#errorbirthdate");
-const errorQuantityTournament = document.querySelector("#errorquantitytournament");
-const errorWhichTown = document.querySelector("#errorwhichtown");
+const errorEmail = document.querySelector("#errorEmail");
+const errorBirthdate = document.querySelector("#errorBirthdate");
+const errorQuantityTournament = document.querySelector("#errorQuantityTournament");
+const errorWhichTown = document.querySelector("#errorWhichTown");
 const errorConditionUser = document.querySelector("#errorconditionuser");
 
 // launch modal form
@@ -92,13 +92,13 @@ function controlForm(event) {
   lastNameValid = controlInputNames(lastName, errorLastName,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom");
 
-  emailValid = controlInputEmail(email, errorEmail, regExpEmail,
+  emailValid = controlInputEmail(email, errorEmail, /*regExpEmail,*/
     "L'adresse email saisie est incorrecte.");
 
   birthdayDateValid = birthdayDateCheck (birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
 
-  quantityTournamentValid = controlInput(quantityTournament, errorQuantityTournament, regExpNumbers, quantityTournamentValid, 
+  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,/* regExpNumbers, quantityTournamentValid,*/ 
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.");
 
@@ -125,22 +125,24 @@ function controlInputNames(input, inputError, textErrorEmpty) {
 
 // Fonction de vérification du champ email
 function controlInputEmail(input, inputError, textErrorEmpty) {
-  const validEmail = regExpEmail.test(input.value)
-  /*return validEmail*/
+  console.log('controlInputEmail');
+  /*const validEmail = regExpEmail.test(input.value)*/
   if (input.value.length < 2) {
+    console.log('toto');
     inputError.innerHTML = textErrorEmpty;
+    console.log('toto2');
     input.style.border = "2px solid #e54858";
     return false;
   }else {
     input.style.border = "0px";
     inputError.innerHTML = "";
     return true;
-    /*return validEmail;*/
   }
 }
 
 //function birthdayDatecheck
-function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty/*input, inputError, textError, isValid*/) {
+function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
+  console.log(birthdayDate.value);
   if (birthdayDate.value == "") {
     errorBirthdate.innerHTML = textErrorEmpty;
     birthdayDate.style.border = "2px solid #e54858";
@@ -154,13 +156,31 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty/*input, 
   }
 }
 
+//Function quantité de tournoi
+function controlInputQuantity(quantityTournament, errorQuantityTournament, /*regExpNumbers,*/quantityTournamentValid) {
+  /*const validQuantityTournament = regExpNumbers.test(input.value)*/
+  console.log('validQuantityTournament');
+  if (quantityTournament.value == "") {
+    quantityTournament.innerHTML = textErrorEmpty;
+    quantityTournament.style.border = "2px solid #e54858";
+    quantityTournament = false;
+    return false;
+  }else {
+    quantityTournamentValid = true;
+    quantityTournament.style.border = "0px";
+    errorQuantityTournament.innerHTML = "";
+    return true;
+}
+}
+
 //Function champ Radio "Dans quelle ville"
-function controlInputWichTown(wichTownValid, errorWhichTown) {
+function controlInputWichTown(wichTownValid, errorWhichTown, textErrorEmpty) {
   console.log('controlInputWichTown');
   for (let i=0; i < whichTown.length; i++) {
     if (whichTown[i].checked) {
         whichTownValid = true;
-        errorWhichTown.innerHTML = "";
+        errorWhichTown.innerHTML = textErrorEmpty;
+        wichTown.style.border = "2px solid #e54858";
     }
   }
     if (whichTownValid===false) {
